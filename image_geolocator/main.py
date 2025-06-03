@@ -31,9 +31,9 @@ class ImageGeolocator:
         if not folder:
             return
 
+        self.add_osm_basemap()     # primero agrega el mapa base
         self.create_layer()
         self.process_images(folder)
-        self.add_osm_basemap()
 
     def create_layer(self):
         self.layer = QgsVectorLayer("Point?crs=EPSG:4326", "Imágenes geolocalizadas", "memory")
