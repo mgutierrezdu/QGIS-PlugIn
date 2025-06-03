@@ -9,16 +9,19 @@ from qgis.PyQt.QtCore import QVariant
 import exifread
 import os
 
+from dialog import ImageGeolocatorDialog
+
 class ImageGeolocator:
     def __init__(self, iface):
         self.iface = iface
         self.action = None
         self.layer = None
+        self.dialog = None
 
     def initGui(self):
         icon_path = os.path.join(os.path.dirname(__file__), "icons", "icon.png")
         self.action = QAction(QIcon(icon_path), "Geolocalizar imágenes", self.iface.mainWindow())
-        self.action.triggered.connect(self.run)
+        self.action.triggered.connect(self.show_dialog)
         self.iface.addToolBarIcon(self.action)
         self.iface.addPluginToMenu("&Image Geolocator", self.action)
 
@@ -26,14 +29,32 @@ class ImageGeolocator:
         self.iface.removeToolBarIcon(self.action)
         self.iface.removePluginMenu("&Image Geolocator", self.action)
 
-    def run(self):
+    def show_dialog(self):
+        if not self.dialog:
+            self.dialog = ImageGeolocatorDialog()
+            self.dialog.browseButton.clicked.connect(self.browse_folder)
+            self.dialog.runButton.clicked.connect(self.run_process)
+        self.dialog.statusLabel.setText("")
+        self.dialog.show()
+        self.dialog.raise_()
+        self.dialog.activateWindow()
+
+    def browse_folder(self):
         folder = QFileDialog.getExistingDirectory(None, "Selecciona la carpeta con imágenes")
-        if not folder:
+        if folder:
+            self.dialog.folderLineEdit.setText(folder)
+
+    def run_process(self):
+        folder = self.dialog.folderLineEdit.text()
+        if not folder or not os.path.isdir(folder):
+            self.dialog.statusLabel.setText("Por favor, selecciona una carpeta válida.")
             return
 
-        self.add_osm_basemap()     # primero agrega el mapa base
+        self.dialog.statusLabel.setText("Procesando imágenes, por favor espera...")
+        self.add_osm_basemap()
         self.create_layer()
         self.process_images(folder)
+        self.dialog.statusLabel.setText("¡Proceso completado!")
 
     def create_layer(self):
         self.layer = QgsVectorLayer("Point?crs=EPSG:4326", "Imágenes geolocalizadas", "memory")

@@ -7,12 +7,40 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <widget class="QLabel" name="label">
+    <widget class="QLabel" name="descriptionLabel">
      <property name="text">
-      <string>Este plugin importa imágenes con coordenadas GPS desde los metadatos EXIF y las muestra como puntos en el mapa.</string>
+      <string>Selecciona una carpeta con imágenes .jpg que contengan coordenadas GPS en los metadatos EXIF:</string>
      </property>
      <property name="wordWrap">
       <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="folderLayout">
+     <item>
+      <widget class="QLineEdit" name="folderLineEdit"/>
+     </item>
+     <item>
+      <widget class="QPushButton" name="browseButton">
+       <property name="text">
+        <string>Explorar...</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="QPushButton" name="runButton">
+     <property name="text">
+      <string>Geolocalizar Imágenes</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="statusLabel">
+     <property name="text">
+      <string></string>
      </property>
     </widget>
    </item>
