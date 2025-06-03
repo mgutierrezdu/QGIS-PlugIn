@@ -1,7 +1,10 @@
 # -*- coding: utf-8 -*-
 from qgis.PyQt.QtWidgets import QAction, QFileDialog, QMessageBox
 from qgis.PyQt.QtGui import QIcon
-from qgis.core import QgsProject, QgsPointXY, QgsGeometry, QgsFeature, QgsVectorLayer, QgsFields, QgsField
+from qgis.core import (
+    QgsProject, QgsPointXY, QgsGeometry, QgsFeature,
+    QgsVectorLayer, QgsFields, QgsField, QgsRasterLayer
+)
 from qgis.PyQt.QtCore import QVariant
 import exifread
 import os
@@ -30,6 +33,7 @@ class ImageGeolocator:
 
         self.create_layer()
         self.process_images(folder)
+        self.add_osm_basemap()
 
     def create_layer(self):
         self.layer = QgsVectorLayer("Point?crs=EPSG:4326", "Imágenes geolocalizadas", "memory")
@@ -63,3 +67,12 @@ class ImageGeolocator:
         if ref in ['S', 'W']:
             decimal = -decimal
         return decimal
+
+    def add_osm_basemap(self):
+        url = "type=xyz&url=https://tile.openstreetmap.org/{z}/{x}/{y}.png"
+        layer = QgsRasterLayer(url, "OpenStreetMap", "wms")
+        if layer.isValid():
+            QgsProject.instance().addMapLayer(layer, False)
+            QgsProject.instance().layerTreeRoot().insertLayer(0, layer)
+        else:
+            QMessageBox.warning(None, "Error", "No se pudo cargar el mapa base.")
