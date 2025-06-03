@@ -56,5 +56,5 @@ class PluginGenerator:
             f.write(content)
             f.truncate()
 
-        QMessageBox.information(None, "Plugin creado", f"Plugin '{name}' creado exitosamente en:
-{plugin_dir}")
+        msg = f"Plugin '{name}' creado exitosamente en:\n{plugin_dir}"
+        QMessageBox.information(None, "Plugin creado", msg)
