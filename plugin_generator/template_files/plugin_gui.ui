@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>PluginDialog</class>
+ <widget class="QDialog" name="PluginDialog">
+  <property name="windowTitle">
+   <string>Nuevo Plugin</string>
+  </property>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

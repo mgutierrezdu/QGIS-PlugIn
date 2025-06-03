@@ -1,0 +1,10 @@
+[general]
+name=plugin_generator
+description=Generador automático de la estructura básica de plugins para QGIS
+version=1.0
+qgisMinimumVersion=3.16
+author=Miguel Ángel Gutiérrez Duque & Jerónimo Vargas Gómez
+email=mgutierrezdu@unal.edu.co, jervargasgo@unal.edu.co
+about=Este plugin permite crear rápidamente la estructura de un nuevo plugin para QGIS.
+category=Plugins
+icon=icon.png

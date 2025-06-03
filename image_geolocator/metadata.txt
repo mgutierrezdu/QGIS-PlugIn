@@ -1,0 +1,10 @@
+[general]
+name=image_geolocator
+description=Plugin para geolocalizar imágenes usando datos EXIF
+version=1.0
+qgisMinimumVersion=3.16
+author=Miguel Ángel Gutiérrez Duque & Jerónimo Vargas Gómez
+email=mgutierrezdu@unal.edu.co, jervargasgo@unal.edu.co
+about=Este plugin permite importar imágenes con coordenadas GPS en sus metadatos EXIF y mostrarlas como puntos en el mapa.
+category=Plugins
+icon=icon.png

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>ImageGeolocatorDialog</class>
+ <widget class="QDialog" name="ImageGeolocatorDialog">
+  <property name="windowTitle">
+   <string>Geolocalizar Imágenes</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QLabel" name="label">
+     <property name="text">
+      <string>Este plugin importa imágenes con coordenadas GPS desde los metadatos EXIF y las muestra como puntos en el mapa.</string>
+     </property>
+     <property name="wordWrap">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
