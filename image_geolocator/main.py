@@ -9,7 +9,7 @@ from qgis.PyQt.QtCore import QVariant
 import exifread
 import os
 
-from dialog import ImageGeolocatorDialog
+from .dialog import ImageGeolocatorDialog
 
 class ImageGeolocator:
     def __init__(self, iface):
@@ -55,7 +55,7 @@ class ImageGeolocator:
         self.create_layer()
         self.process_images(folder)
         self.dialog.statusLabel.setText("¡Proceso completado!")
-
+        
     def create_layer(self):
         self.layer = QgsVectorLayer("Point?crs=EPSG:4326", "Imágenes geolocalizadas", "memory")
         pr = self.layer.dataProvider()
