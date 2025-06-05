@@ -9,15 +9,97 @@
    <item>
     <widget class="QLabel" name="label">
      <property name="text">
-      <string>Este plugin genera la estructura básica de un nuevo complemento para QGIS.</string>
+      <string>Generador de plugins para QGIS. Personaliza el código Python y la interfaz del plugin a crear:</string>
      </property>
      <property name="wordWrap">
       <bool>true</bool>
      </property>
     </widget>
    </item>
+   <item>
+    <widget class="QLabel" name="labelPython">
+     <property name="text">
+      <string>Introduce el código Python para el archivo main.py o selecciona un archivo .py:</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="pythonLayout">
+     <item>
+      <widget class="QTextEdit" name="pythonCodeTextEdit"/>
+     </item>
+     <item>
+      <widget class="QPushButton" name="browsePythonButton">
+       <property name="text">
+        <string>Cargar archivo .py</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="QLabel" name="labelUI">
+     <property name="text">
+      <string>Selecciona un archivo .ui para reemplazar la interfaz generica (debe llamarse gui.ui):</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="uiLayout">
+     <item>
+      <widget class="QLineEdit" name="uiFileLineEdit"/>
+     </item>
+     <item>
+      <widget class="QPushButton" name="browseUIButton">
+       <property name="text">
+        <string>Cargar archivo .ui (opcional)</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="QLabel" name="infoLabel">
+     <property name="text">
+      <string><i>Si no deseas cargar un archivo .ui, el plugin generará una interfaz por defecto que puedes personalizar después.</i></string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="labelIcon">
+     <property name="text">
+      <string>Selecciona un ícono para el plugin (opcional):</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="iconLayout">
+     <item>
+      <widget class="QLineEdit" name="iconFileLineEdit"/>
+     </item>
+     <item>
+      <widget class="QPushButton" name="browseIconButton">
+       <property name="text">
+        <string>Cargar ícono</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="QPushButton" name="generateButton">
+     <property name="text">
+      <string>Generar Plugin</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="statusLabel">
+     <property name="text">
+      <string></string>
+     </property>
+    </widget>
+   </item>
   </layout>
  </widget>
- <resources/>
- <connections/>
 </ui>
