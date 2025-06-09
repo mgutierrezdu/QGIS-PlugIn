@@ -11,6 +11,7 @@ import os
 import shutil
 import zipfile
 
+# Importar la clase correcta desde dialog.py
 from .dialog import PluginGeneratorDialog
 
 class PluginGenerator:
