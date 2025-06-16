@@ -2,7 +2,7 @@ from PyQt5 import uic
 from PyQt5.QtWidgets import QDialog, QFileDialog, QMessageBox
 import os
 
-class PluginGeneratorDialog(QDialog):
+class {{ plugin_class_name }}Dialog(QDialog):
     def __init__(self):
         super().__init__()
 

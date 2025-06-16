@@ -1,10 +1,12 @@
 from qgis.PyQt.QtWidgets import QAction, QFileDialog, QMessageBox
 from qgis.PyQt.QtGui import QIcon
+from .dialog import {{ plugin_class_name }}Dialog
 
-class PluginGenerator:
+class {{ plugin_class_name }}:
     def __init__(self, iface):
         self.iface = iface
         self.action = None
+        self.dlg = None
 
     def initGui(self):
         icon_path = "icons/icon.png"  # Asegúrate de que el ícono esté en la carpeta correcta
@@ -16,8 +18,10 @@ class PluginGenerator:
         self.iface.removeToolBarIcon(self.action)
 
     def run(self):
-        # Lógica del plugin aquí
-        QMessageBox.information(None, "Información", "Plugin Generado")
+        if self.dlg is None:
+            self.dlg = {{ plugin_class_name }}Dialog()
+        self.dlg.show()
+        self.dlg.exec_()
 
 def classFactory(iface):
-    return PluginGenerator(iface)
+    return {{ plugin_class_name }}(iface)
