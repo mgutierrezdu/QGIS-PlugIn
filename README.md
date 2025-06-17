@@ -27,10 +27,13 @@ Este plugin permite importar imágenes con coordenadas GPS embebidas en sus meta
 Este plugin permite crear automáticamente la estructura base de un nuevo plugin de QGIS con carpetas, archivos y plantillas listas para desarrollar.
 
 ### 🔧 Funciones principales
-- Entrada de nombre del nuevo plugin.
+- Entrada de nombre visible y autores del nuevo plugin.
+- El nombre visible puede contener espacios y caracteres especiales, pero el generador creará automáticamente nombres de clase y archivos válidos para Python (sin espacios ni caracteres especiales).
 - Creación automática de:
-  - `metadata.txt`, `plugin_base.py`, `plugin_gui.ui`
+  - `metadata.txt`, `main.py`, `dialog.py`, `gui.ui`
   - carpetas estándar: `forms/`, `icons/`, `resources/`, `i18n/`
+- Permite cargar archivos personalizados (`main.py`, `dialog.py`, `.ui`).
+- Si deseas widgets/interfaz, debes cargar tu propio `main.py`, `dialog.py` y `.ui` personalizados. El generador no modifica el código del usuario.
 
 ### 📦 Instalación
 1. Copiar la carpeta `plugin_generator` al directorio de plugins de QGIS.
@@ -66,8 +69,6 @@ QGIS-PlugIn/
 ├── plugin_generator/
 │   └── [archivos del plugin 2]
 ```
-
-
 
 ---
 

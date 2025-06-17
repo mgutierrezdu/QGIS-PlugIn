@@ -58,15 +58,35 @@ C:\Users\<TU_USUARIO>\AppData\Roaming\QGIS\QGIS3\profiles\default\python\plugins
 
 ## ✍️ Personalización
 
-- Los archivos `metadata.txt`, `plugin_base.py` y `plugin_gui.ui` sirven como plantilla base y pueden personalizarse.
+- Los archivos `metadata.txt`, `main.py`, `dialog.py` y `gui.ui` sirven como plantilla base y pueden personalizarse.
 - El campo `plugin_name` será reemplazado automáticamente por el nombre del nuevo plugin.
+
+### ⚠️ Sobre la interfaz y widgets
+
+- **Por defecto, el plugin generado NO tiene interfaz ni widgets.**
+- **Si deseas que tu plugin tenga widgets/interfaz gráfica, debes cargar tu propio `main.py`, `dialog.py` y `.ui` personalizados.**
+- El generador no modifica ni valida el código del usuario. Si tu código accede a widgets, asegúrate de que existan en tu `.ui` y `dialog.py`.
+- Si no cargas archivos personalizados, el plugin generado será mínimo y robusto, sin referencias a widgets.
+
+#### Ejemplo: Acceso seguro a widgets en tu main.py
+
+```python
+# En tu main.py personalizado, accede a widgets así:
+if hasattr(self.dlg, 'browseButton'):
+    self.dlg.browseButton.clicked.connect(self.browse_folder)
+if hasattr(self.dlg, 'runButton'):
+    self.dlg.runButton.clicked.connect(self.run_process)
+if hasattr(self.dlg, 'statusLabel'):
+    self.dlg.statusLabel.setText("")
+```
+
+Esto evita errores si el widget no existe (por ejemplo, si generas un plugin sin interfaz).
 
 ---
 
 Autores:  
 - Miguel Ángel Gutiérrez Duque (mgutierrezdu@unal.edu.co)  
 - Jerónimo Vargas Gómez (jervargasgo@unal.edu.co)
-
 
 ---
 

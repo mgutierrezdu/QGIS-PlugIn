@@ -10,6 +10,7 @@ import exifread
 import os
 import shutil
 import zipfile
+import re
 
 # Importar la clase correcta desde dialog.py
 from .dialog import PluginGeneratorDialog
@@ -22,11 +23,20 @@ def render_template(src, dst, context):
     with open(dst, 'w', encoding='utf-8') as f:
         f.write(content)
 
+def render_string_template(content, context):
+    for key, value in context.items():
+        content = content.replace('{{ ' + key + ' }}', value)
+    return content
+
 class PluginGenerator:
     def __init__(self, iface):
         self.iface = iface
         self.action = None
         self.dialog = None
+
+    def normalize_class_name(self, name):
+        # Quita todo lo que no sea letra o número, y capitaliza cada palabra
+        return ''.join(word.capitalize() for word in re.findall(r'\w+', name))
 
     def initGui(self):
         icon_path = os.path.join(os.path.dirname(__file__), "icons", "icon.png")
@@ -78,9 +88,10 @@ class PluginGenerator:
         if not folder:
             return
 
-        # Crear la carpeta del nuevo plugin
-        plugin_name = "NuevoPlugin"  # O algún nombre proporcionado por el usuario
-        plugin_class_name = plugin_name  # O ajusta según convención
+        # Leer nombre y autores del plugin desde la interfaz
+        plugin_name = self.dialog.plugin_name
+        plugin_class_name = self.normalize_class_name(plugin_name)
+        plugin_authors = self.dialog.plugin_authors
 
         plugin_dir = os.path.join(folder, plugin_name)
         if os.path.exists(plugin_dir):
@@ -96,6 +107,7 @@ class PluginGenerator:
         context = {
             'plugin_class_name': plugin_class_name,
             'plugin_name': plugin_name,
+            'plugin_author': plugin_authors,
         }
 
         # Copiar y renderizar los archivos base del plugin
@@ -110,9 +122,16 @@ class PluginGenerator:
 
         # Guardar el código Python ingresado o cargado
         python_code = self.dialog.pythonCodeTextEdit.toPlainText()
-        if python_code:
-            with open(os.path.join(plugin_dir, "main.py"), "w") as f:
-                f.write(python_code)
+        if python_code.strip():
+            # Reemplaza nombres hardcodeados por variables de plantilla
+            python_code = python_code.replace('ImageGeolocatorDialog', '{{ plugin_class_name }}Dialog')
+            python_code = python_code.replace('PluginGenerator', '{{ plugin_class_name }}')
+            # Reemplaza la definición de la clase principal (primera clase, con o sin paréntesis)
+            python_code = re.sub(r'class\s+\w+\s*(\(|:)', r'class {{ plugin_class_name }}\1', python_code, count=1)
+            # Renderiza el main.py como plantilla
+            rendered_code = render_string_template(python_code, context)
+            with open(os.path.join(plugin_dir, "main.py"), "w", encoding="utf-8") as f:
+                f.write(rendered_code)
         else:
             QMessageBox.warning(None, "Advertencia", "No se ingresó ningún código Python.")
 
@@ -134,6 +153,27 @@ class PluginGenerator:
             # Si no se carga un ícono, se usa el ícono predeterminado
             default_icon_path = os.path.join(os.path.dirname(__file__), "icons", "default_icon.png")
             shutil.copy(default_icon_path, os.path.join(plugin_dir, "icons", "icon.png"))
+
+        # Guardar el dialog.py personalizado o generar uno mínimo
+        dialog_code = getattr(self.dialog, 'dialogPythonCode', None)
+        if dialog_code and dialog_code.strip():
+            # Procesar como plantilla
+            dialog_code = dialog_code.replace('PluginGeneratorDialog', '{{ plugin_class_name }}Dialog')
+            dialog_code = re.sub(r'class\s+\w+\s*(\(|:)', r'class {{ plugin_class_name }}Dialog\1', dialog_code, count=1)
+            rendered_dialog_code = render_string_template(dialog_code, context)
+            with open(os.path.join(plugin_dir, "dialog.py"), "w", encoding="utf-8") as f:
+                f.write(rendered_dialog_code)
+        else:
+            # Generar un dialog.py mínimo
+            minimal_dialog = (
+                "from PyQt5.QtWidgets import QDialog\n\n"
+                "class {{ plugin_class_name }}Dialog(QDialog):\n"
+                "    def __init__(self):\n"
+                "        super().__init__()\n"
+            )
+            rendered_dialog_code = render_string_template(minimal_dialog, context)
+            with open(os.path.join(plugin_dir, "dialog.py"), "w", encoding="utf-8") as f:
+                f.write(rendered_dialog_code)
 
         # Comprimir el plugin en un archivo .zip con la estructura correcta (plugin_name como carpeta principal)
         zip_file = os.path.join(folder, f"{plugin_name}.zip")
