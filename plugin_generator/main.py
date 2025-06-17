@@ -14,6 +14,14 @@ import zipfile
 # Importar la clase correcta desde dialog.py
 from .dialog import PluginGeneratorDialog
 
+def render_template(src, dst, context):
+    with open(src, 'r', encoding='utf-8') as f:
+        content = f.read()
+    for key, value in context.items():
+        content = content.replace('{{ ' + key + ' }}', value)
+    with open(dst, 'w', encoding='utf-8') as f:
+        f.write(content)
+
 class PluginGenerator:
     def __init__(self, iface):
         self.iface = iface
@@ -72,6 +80,8 @@ class PluginGenerator:
 
         # Crear la carpeta del nuevo plugin
         plugin_name = "NuevoPlugin"  # O algún nombre proporcionado por el usuario
+        plugin_class_name = plugin_name  # O ajusta según convención
+
         plugin_dir = os.path.join(folder, plugin_name)
         if os.path.exists(plugin_dir):
             QMessageBox.warning(None, "Advertencia", "La carpeta del plugin ya existe.")
@@ -83,12 +93,20 @@ class PluginGenerator:
         os.makedirs(os.path.join(plugin_dir, "resources"))
         os.makedirs(os.path.join(plugin_dir, "i18n"))
 
-        # Copiar los archivos base del plugin
+        context = {
+            'plugin_class_name': plugin_class_name,
+            'plugin_name': plugin_name,
+        }
+
+        # Copiar y renderizar los archivos base del plugin
         template_path = os.path.join(os.path.dirname(__file__), "template_files")
         for filename in os.listdir(template_path):
             src = os.path.join(template_path, filename)
             dst = os.path.join(plugin_dir, filename)
-            shutil.copy(src, dst)
+            if filename.endswith('.py') or filename.endswith('.txt'):
+                render_template(src, dst, context)
+            else:
+                shutil.copy(src, dst)
 
         # Guardar el código Python ingresado o cargado
         python_code = self.dialog.pythonCodeTextEdit.toPlainText()
