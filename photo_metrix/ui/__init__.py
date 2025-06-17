@@ -1,0 +1,1 @@
+# Módulo de interfaz de usuario para Photo Metrix 
