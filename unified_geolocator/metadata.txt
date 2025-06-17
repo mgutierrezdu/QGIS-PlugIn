@@ -1,0 +1,19 @@
+[general]
+name=Unified Geolocator
+description=Plugin unificado para geolocalización de imágenes y cálculo de distancias
+version=1.0.0
+qgisMinVersion=3.0
+homepage=https://github.com/your-repo/unified-geolocator
+repository=https://github.com/your-repo/unified-geolocator
+tracker=https://github.com/your-repo/unified-geolocator/issues
+author=Tu Nombre
+email=tu.email@ejemplo.com
+about=Plugin que combina funcionalidades de geolocalización de imágenes y análisis de distancias en una interfaz unificada.
+
+changelog=1.0.0 - Versión inicial con funcionalidades básicas de geolocalización y análisis
+
+experimental=False
+deprecated=False
+tags=geolocation,images,distance,analysis,gps
+category=Vector
+icon=icons/icon.png 
