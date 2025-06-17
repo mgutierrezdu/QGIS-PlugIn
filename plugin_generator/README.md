@@ -16,7 +16,7 @@ plugin_generator/
 │   └── icon.png
 ├── template_files/
 │   ├── metadata.txt
-│   ├── plugin_base.py
+│   ├── main.py
 │   └── plugin_gui.ui
 ├── i18n/
 ├── resources/
@@ -60,6 +60,39 @@ C:\Users\<TU_USUARIO>\AppData\Roaming\QGIS\QGIS3\profiles\default\python\plugins
 
 - Los archivos `metadata.txt`, `main.py`, `dialog.py` y `gui.ui` sirven como plantilla base y pueden personalizarse.
 - El campo `plugin_name` será reemplazado automáticamente por el nombre del nuevo plugin.
+
+### ⚡️ Bloque de imports recomendado
+
+El template base de `main.py` incluye imports de `qgis.core` y `qgis.gui` para máxima compatibilidad. **Elimina los que no uses para mantener tu plugin limpio.**
+
+```python
+from qgis.PyQt.QtWidgets import QAction, QFileDialog, QMessageBox
+from qgis.PyQt.QtGui import QIcon, QColor
+
+# Lógica y capas principales
+from qgis.core import (
+    QgsProject,
+    QgsRasterLayer,
+    QgsVectorLayer,
+    QgsFeature,
+    QgsGeometry,
+    QgsField,
+    QgsFields,
+    Qgis
+)
+
+# Herramientas de mapa y GUI (descomenta o elimina según tu plugin)
+from qgis.gui import (
+    QgsMapToolEmitPoint,
+    QgsVertexMarker,
+    QgsMapTool,
+    QgsRubberBand,
+    QgsMapCanvas
+)
+
+import os
+import math
+```
 
 ### ⚠️ Sobre la interfaz y widgets
 
