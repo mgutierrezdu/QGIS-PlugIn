@@ -1,10 +1,10 @@
 [general]
-name={{ plugin_name }}
+name=plugin_name
 description=Este es un plugin generado automáticamente
 version=1.0
 qgisMinimumVersion=3.16
-author={{ plugin_author }}
-email=
+author=plugin_author
+email=plugin_email
 about=Estructura base generada automáticamente
 category=Plugins
 icon=icon.png

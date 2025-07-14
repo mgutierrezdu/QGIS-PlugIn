@@ -7,26 +7,6 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <widget class="QLabel" name="labelPluginName">
-     <property name="text">
-      <string>Nombre del plugin:</string>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="QLineEdit" name="pluginNameLineEdit"/>
-   </item>
-   <item>
-    <widget class="QLabel" name="labelPluginAuthors">
-     <property name="text">
-      <string>Autores del plugin:</string>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="QLineEdit" name="pluginAuthorsLineEdit"/>
-   </item>
-   <item>
     <widget class="QLabel" name="label">
      <property name="text">
       <string>Generador de plugins para QGIS. Personaliza el código Python y la interfaz del plugin a crear:</string>
@@ -52,27 +32,6 @@
       <widget class="QPushButton" name="browsePythonButton">
        <property name="text">
         <string>Cargar archivo .py</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </item>
-   <item>
-    <widget class="QLabel" name="labelDialogPython">
-     <property name="text">
-      <string>Selecciona un archivo dialog.py personalizado (opcional):</string>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <layout class="QHBoxLayout" name="dialogPythonLayout">
-     <item>
-      <widget class="QLineEdit" name="dialogPythonFileLineEdit"/>
-     </item>
-     <item>
-      <widget class="QPushButton" name="browseDialogButton">
-       <property name="text">
-        <string>Cargar dialog.py (opcional)</string>
        </property>
       </widget>
      </item>
