@@ -42,8 +42,8 @@ Este plugin permite crear automáticamente la estructura base de un nuevo plugin
 ## 👥 Autores
 
 - **Image Geolocator**: Miguel Ángel Gutiérrez Duque & Jerónimo Vargas Gómez  
-  ✉️ mgutierrezdu@unal.edu.co, jervargasgo@unal.edu.co
-- **Plugin Generator**: Miguel Ángel Gutiérrez Duque & Jerónimo Vargas Gómez  
+- **Plugin Generator**: Miguel Ángel Gutiérrez Duque & Jerónimo Vargas Gómez
+  
   ✉️ mgutierrezdu@unal.edu.co, jervargasgo@unal.edu.co
 
 ---
